@@ -31,7 +31,8 @@ URUN_KEYS = {u[0] for u in URUNLER}
 MAX_ALIM = 5000
 
 # ---------------------------------------------------------------- ayarlar
-app = Flask(__name__, static_folder="static")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, static_folder=None)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1)
 
 on_render = bool(os.environ.get("RENDER"))
@@ -440,7 +441,7 @@ def fiyatlar():
 
 @app.route("/")
 def index():
-    return send_from_directory("static", "index.html")
+    return send_from_directory(BASE_DIR, "index.html")
 
 
 if __name__ == "__main__":
